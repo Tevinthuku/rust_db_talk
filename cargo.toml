@@ -1,6 +1,7 @@
 [workspace]
 members = [
-    "connection_pool"
+    "connection-pool",
+    "migrations/*"
 ]
 
 

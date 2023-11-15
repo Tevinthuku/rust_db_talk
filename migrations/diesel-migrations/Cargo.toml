@@ -1,0 +1,14 @@
+[package]
+name = "diesel-migrations"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow.workspace = true
+diesel = { workspace = true, features = ["postgres", "r2d2"] }
+diesel_migrations = "2.1.0"
+tokio.workspace = true
+
+connection-pool = { path = "../../connection-pool", version = "*" }

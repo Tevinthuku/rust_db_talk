@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 services:
-  connection_pool:
+  base_db:
     image: postgres:15.2-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=connection_pool
+      - POSTGRES_DB=base_db
     ports:
-      - '5432:5432'
+      - "5432:5432"
