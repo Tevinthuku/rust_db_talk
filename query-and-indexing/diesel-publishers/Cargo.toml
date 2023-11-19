@@ -1,5 +1,5 @@
 [package]
-name = "diesel-migrations"
+name = "diesel-publishers"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,8 +7,11 @@ edition = "2021"
 
 [dependencies]
 anyhow.workspace = true
+clap.workspace = true
 diesel = { workspace = true, features = ["postgres", "r2d2"] }
-diesel_migrations.workspace = true
+diesel_migrations = "2.1.0"
 tokio.workspace = true
-
+itertools.workspace = true
+serde.workspace = true
+serde_json.workspace = true
 connection-pool = { path = "../../connection-pool", version = "*" }

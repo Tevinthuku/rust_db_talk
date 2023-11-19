@@ -13,7 +13,7 @@ pub async fn create_sqlx_pool() -> anyhow::Result<PgPool> {
         .context("Failed to create a pool")
 }
 
-type DieselPool = diesel::r2d2::Pool<ConnectionManager<diesel::PgConnection>>;
+pub type DieselPool = diesel::r2d2::Pool<ConnectionManager<diesel::PgConnection>>;
 
 pub fn create_diesel_pool() -> anyhow::Result<DieselPool> {
     let db_url = read_db_url_from_env()?;
