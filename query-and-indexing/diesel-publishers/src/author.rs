@@ -22,11 +22,15 @@ pub struct Author {
     name: String,
 }
 
-pub async fn author_details(pool: DieselPool, id: i32) -> anyhow::Result<Option<Author>> {
+#[tracing::instrument(skip(pool), level = "info")]
+pub async fn author_details(
+    pool: DieselPool,
+    the_author_id: i32,
+) -> anyhow::Result<Option<Author>> {
     tokio::task::spawn_blocking(move || {
         let mut conn = pool.get().context("Failed to get connection")?;
         author::table
-            .find(id)
+            .find(the_author_id)
             .first::<Author>(&mut conn)
             .optional()
             .context("Failed to get author")
@@ -70,9 +74,10 @@ impl FromSql<diesel::sql_types::Jsonb, Pg> for AuthorBooks {
 }
 
 // with diesel's DSL (Domain specific language)
+#[tracing::instrument(skip(pool), level = "info")]
 pub async fn author_books_diesel_dsl(
     pool: DieselPool,
-    an_author_id: i32,
+    the_author_id: i32,
 ) -> anyhow::Result<(Author, AuthorBooks)> {
     use crate::schema::author::dsl::*;
     use crate::schema::book::dsl::*;
@@ -80,20 +85,18 @@ pub async fn author_books_diesel_dsl(
     tokio::task::spawn_blocking(move || {
         let mut conn = pool.get().context("Failed to get a connection")?;
         let aggregation_sql = "JSONB_AGG(book)";
-        let mut result: Vec<(Author, AuthorBooks)> = author
+        let result: (Author, AuthorBooks) = author
             .inner_join(book_author.inner_join(book))
             .select((
                 author::all_columns(),
                 diesel::dsl::sql::<diesel::sql_types::Jsonb>(aggregation_sql),
             ))
             .group_by(schema::author::id)
-            .filter(schema::author::id.eq(an_author_id))
-            .load::<(Author, AuthorBooks)>(&mut conn)
+            .filter(schema::author::id.eq(the_author_id))
+            .first::<(Author, AuthorBooks)>(&mut conn)
             .context("Failed to fetch author with books")?;
 
-        result
-            .pop()
-            .ok_or_else(|| anyhow!("Failed ot get author with books"))
+        Ok(result)
     })
     .await?
 }
@@ -109,9 +112,10 @@ pub struct AuthorWithBooks {
 }
 
 // with raw sql
+#[tracing::instrument(skip(pool), level = "info")]
 pub async fn author_books_raw_sql(
     pool: DieselPool,
-    an_author_id: i32,
+    the_author_id: i32,
 ) -> anyhow::Result<AuthorWithBooks> {
     tokio::task::spawn_blocking(move || {
         let query = r#"
@@ -127,7 +131,7 @@ pub async fn author_books_raw_sql(
         let mut conn = pool.get().context("Failed to get a connection")?;
 
         sql_query(query)
-            .bind::<Integer, _>(an_author_id)
+            .bind::<Integer, _>(the_author_id)
             .load::<AuthorWithBooks>(&mut conn)
             .context("Failed to get author with books")?
             .pop()
@@ -145,13 +149,13 @@ mod tests {
         let pool = create_diesel_pool().unwrap();
         let result = author_books_diesel_dsl(pool, 1).await;
 
-        println!("{result:?}");
+        assert!(result.is_ok());
     }
 
     #[tokio::test]
     async fn test_impl_2_getting_author_books_works() {
         let pool = create_diesel_pool().unwrap();
         let result = author_books_raw_sql(pool, 1).await;
-        println!("{result:?}");
+        assert!(result.is_ok())
     }
 }

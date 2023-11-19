@@ -1,3 +1,9 @@
+## Info
+
+Just a basic system that stores author details and the books they wrote.
+
+We cover querying the database with diesel, indexes and tracing
+
 ## Setup
 
 1.  run `diesel setup`

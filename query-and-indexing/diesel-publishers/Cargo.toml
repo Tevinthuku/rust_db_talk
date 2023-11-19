@@ -10,8 +10,13 @@ anyhow.workspace = true
 clap.workspace = true
 diesel = { workspace = true, features = ["postgres", "r2d2"] }
 diesel_migrations = "2.1.0"
+dotenv-flow.workspace = true
 tokio.workspace = true
 itertools.workspace = true
 serde.workspace = true
 serde_json.workspace = true
+
 connection-pool = { path = "../../connection-pool", version = "*" }
+tracing_helpers = { path = "../../tracing-helpers", version = "*" }
+tracing.workspace = true
+tracing-log.workspace = true
