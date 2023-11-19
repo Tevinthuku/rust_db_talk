@@ -26,7 +26,7 @@ pub fn create_diesel_pool() -> anyhow::Result<DieselPool> {
 }
 
 fn read_db_url_from_env() -> anyhow::Result<String> {
-    use dotenv::dotenv;
-    dotenv().ok();
+    dotenv_flow::dotenv_flow().ok();
+
     std::env::var("DATABASE_URL").context("Failed to get the DATABASE_URL env variable")
 }

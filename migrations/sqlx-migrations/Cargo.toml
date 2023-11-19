@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 anyhow.workspace = true
-dotenv.workspace = true
+dotenv-flow.workspace = true
 sqlx.workspace = true
 tokio.workspace = true
 

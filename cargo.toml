@@ -2,7 +2,8 @@
 members = [
     "connection-pool",
     "migrations/*",
-    "query-and-indexing/*"
+    "query-and-indexing/*",
+    "tracing-helpers"
 ]
 
 
@@ -10,10 +11,16 @@ members = [
 anyhow = "1.0.75"
 diesel = { version = "2.1.3", features = ["r2d2", "postgres", "serde_json"] }
 diesel_migrations = "2.1.0"
-dotenv = "0.15.0"
+dotenv-flow = "0.16.2"
 sqlx = { version = "0.7", features = [ "runtime-tokio", "postgres", "uuid", "time", "chrono", "json" ] }
 tokio = { version = "1.34.0", features = ["full"] }
 serde = { version = "1.0.152", features = ["derive"] }
 serde_json = { version = "1.0.93"}
 itertools = "0.12.0"
 clap = { version = "4.3.8", features = ["derive", "std"], default-features = false }
+
+
+# open telemetry dependencies
+tracing = "0.1.36"
+tracing-attributes = "0.1.23"
+tracing-log = "0.1.3"

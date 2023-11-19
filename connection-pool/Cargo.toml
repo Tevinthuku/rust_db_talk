@@ -12,6 +12,6 @@ path = "src/lib.rs"
 [dependencies]
 anyhow.workspace = true
 diesel = { workspace = true, features = ["postgres", "r2d2"] }
-dotenv.workspace = true
+dotenv-flow.workspace = true
 sqlx.workspace = true
 tokio.workspace = true
