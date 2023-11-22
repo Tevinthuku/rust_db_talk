@@ -47,9 +47,10 @@ async fn start() -> anyhow::Result<()> {
 
     let pool = create_diesel_pool()?;
     let result = query_runner(pool, cli.query).await;
-    println!("{result:?}");
-    if let Err(err) = result {
-        error!("{err:?}");
+
+    match result {
+        Ok(res) => info!("{res:?}"),
+        Err(err) => error!("{err:?}"),
     }
 
     Ok(())

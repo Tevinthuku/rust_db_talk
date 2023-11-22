@@ -1,0 +1,38 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT sale_date, product_sku, quantity, price FROM product_sale ORDER BY sale_date;\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "sale_date",
+        "type_info": "Timestamp"
+      },
+      {
+        "ordinal": 1,
+        "name": "product_sku",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "quantity",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "price",
+        "type_info": "Numeric"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "bcc4a844774d8780d41e215618ff7b884f9fdd029a60e60212c14b363d807268"
+}

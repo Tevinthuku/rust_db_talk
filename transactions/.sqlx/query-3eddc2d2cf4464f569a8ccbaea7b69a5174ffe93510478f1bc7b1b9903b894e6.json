@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO product (product_sku, name, price)\n\n        VALUES ($1, $2, $3) \n        RETURNING product_sku\n    ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "product_sku",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Numeric"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "3eddc2d2cf4464f569a8ccbaea7b69a5174ffe93510478f1bc7b1b9903b894e6"
+}

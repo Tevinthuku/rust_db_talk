@@ -1,0 +1,32 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT product_sku, SUM(quantity) as total_quantity, SUM(price) as total_sales FROM product_sale GROUP BY (product_sku)\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "product_sku",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 1,
+        "name": "total_quantity",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 2,
+        "name": "total_sales",
+        "type_info": "Numeric"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      null,
+      null
+    ]
+  },
+  "hash": "8b65c147df463929697f2d440452eea607151747ecb30ce26b506714db760355"
+}

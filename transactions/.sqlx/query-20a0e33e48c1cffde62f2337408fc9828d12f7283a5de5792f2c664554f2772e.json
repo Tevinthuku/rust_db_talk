@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO product_inventory (product_sku, quantity) VALUES ($1, $2) \n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "20a0e33e48c1cffde62f2337408fc9828d12f7283a5de5792f2c664554f2772e"
+}

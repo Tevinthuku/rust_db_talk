@@ -8,7 +8,7 @@ use opentelemetry::trace::TraceError;
 use opentelemetry_otlp::WithExportConfig;
 use std::collections::HashMap;
 
-use tracing_subscriber::prelude::*;
+use tracing_subscriber::{filter::LevelFilter, prelude::*};
 
 fn init_tracer() -> Result<Tracer, TraceError> {
     dotenv_flow::dotenv_flow().ok();
@@ -32,8 +32,21 @@ pub fn config_telemetry() {
     // Needed to forward ordinary log statements to our tracing subscriber.
     tracing_log::LogTracer::init().expect("Failed to initialize log tracer");
     let tracer = init_tracer().expect("Failed to initialize tracer");
+
     let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
-    let subscriber = tracing_subscriber::Registry::default().with(telemetry);
+
+    let fmt_layers = [LevelFilter::ERROR, LevelFilter::WARN, LevelFilter::INFO]
+        .into_iter()
+        .map(|filter| {
+            tracing_subscriber::fmt::layer()
+                .with_target(false)
+                .with_filter(filter)
+                .boxed()
+        })
+        .collect::<Vec<_>>();
+    let subscriber = tracing_subscriber::Registry::default()
+        .with(telemetry)
+        .with(fmt_layers);
     tracing::subscriber::set_global_default(subscriber).unwrap();
 }
 
