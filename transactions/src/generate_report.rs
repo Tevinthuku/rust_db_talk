@@ -4,7 +4,9 @@ use sqlx::{Executor, PgPool};
 #[tracing::instrument(skip(pool), level = "info")]
 pub async fn generate_report(pool: PgPool) -> anyhow::Result<()> {
     let mut tx = pool.begin().await.context("Failed to begin transaction")?;
-
+    // https://github.com/launchbadge/sqlx/issues/481
+    // we still don't have "native" sqlx support for setting the isolation level
+    // Diesel, does support this https://docs.diesel.rs/2.0.x/diesel/pg/struct.TransactionBuilder.html#method.repeatable_read
     tx.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;")
         .await
         .context("Failed to set isolation level")?;
