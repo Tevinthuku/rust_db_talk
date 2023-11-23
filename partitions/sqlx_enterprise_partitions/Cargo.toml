@@ -1,0 +1,21 @@
+[package]
+name = "sqlx_enterprise_partitions"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow.workspace = true
+bigdecimal.workspace = true
+clap.workspace = true
+dotenv-flow.workspace = true
+sqlx.workspace = true
+tokio.workspace = true
+connection-pool = { path = "../../connection-pool", version = "*" }
+
+tracing_helpers = { path = "../../tracing-helpers", version = "*" }
+tracing.workspace = true
+tracing-log.workspace = true
+
+fake = { version = "2.9", features = ["derive", "bigdecimal"] }

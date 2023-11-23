@@ -2339,6 +2339,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "sqlx_enterprise_partitions"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bigdecimal 0.3.1",
+ "clap",
+ "connection-pool",
+ "dotenv-flow",
+ "fake",
+ "sqlx",
+ "tokio",
+ "tracing",
+ "tracing-log 0.1.4",
+ "tracing_helpers",
+]
+
+[[package]]
 name = "stringprep"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
