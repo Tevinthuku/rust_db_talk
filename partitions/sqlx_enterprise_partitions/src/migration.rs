@@ -1,9 +1,13 @@
 use anyhow::Context;
 use sqlx::{migrate::Migrator, PgPool};
+use tracing::info;
 
-static SHARED_MIGRATOR: Migrator = sqlx::migrate!("./migrations/shared");
-static TENANT_MIGRATOR: Migrator = sqlx::migrate!("./migrations/tenant");
+use crate::tenant::TENANTS;
 
+static SHARED_MIGRATOR: Migrator = sqlx::migrate!("./migrations/shared/migrations");
+static TENANT_MIGRATOR: Migrator = sqlx::migrate!("./migrations/tenant/migrations");
+
+#[tracing::instrument(skip(pool), level = "info")]
 pub async fn run_migrations(pool: &PgPool) -> anyhow::Result<()> {
     let mut tx = pool
         .begin()
@@ -13,8 +17,8 @@ pub async fn run_migrations(pool: &PgPool) -> anyhow::Result<()> {
         .run(&mut *tx)
         .await
         .context("Failed to run the shared migrations")?;
-    let tenants = ["nairobi-west", "mater"];
-    for tenant in tenants {
+    for tenant in TENANTS {
+        info!("Beginning tenant migration {tenant}");
         let create_schema_query = format!("CREATE SCHEMA IF NOT EXISTS \"{}\"", tenant);
         sqlx::query(&create_schema_query)
             .execute(&mut *tx)
@@ -32,5 +36,7 @@ pub async fn run_migrations(pool: &PgPool) -> anyhow::Result<()> {
             .await
             .with_context(|| format!("Failed to run the migrations for tenant {tenant}"))?;
     }
-    Ok(())
+    tx.commit()
+        .await
+        .context("Failed to commit migration transaction")
 }
