@@ -1,15 +1,20 @@
+use std::sync::Arc;
 use anyhow::{bail, Context};
+
 use sqlx::{pool::PoolConnection, PgConnection, PgPool, Postgres};
 
+#[cfg(not(test))]
 pub static TENANTS: [&str; 2] = ["mater", "nairobi-west"];
+#[cfg(test)]
+pub static TENANTS: [&str; 1] = ["test-hospital"];
 
-pub struct TenantConnection<'a> {
-    pool: &'a PgPool,
+pub struct TenantConnection {
+    pool: Arc<PgPool>,
     tenant: String,
 }
 
-impl<'a> TenantConnection<'a> {
-    pub fn new(pool: &'a PgPool, tenant: String) -> anyhow::Result<Self> {
+impl TenantConnection {
+    pub fn new(pool: Arc<PgPool>, tenant: String) -> anyhow::Result<Self> {
         if tenant.contains(&tenant) {
             return Ok(Self { pool, tenant });
         }

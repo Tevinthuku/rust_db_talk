@@ -1,6 +1,9 @@
 pub mod migration;
 pub mod tenant;
 pub mod visit_hospital;
+pub mod test_fixtures;
+
+use std::sync::Arc;
 use clap::Parser;
 use connection_pool::create_sqlx_pool;
 use sqlx::PgPool;
@@ -23,7 +26,7 @@ enum Query {
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     dotenv_flow::dotenv_flow().ok();
-    let pool = create_sqlx_pool().await?;
+    let pool = create_sqlx_pool().await.map(Arc::new)?;
     let cli = Options::parse();
     tracing_helpers::config_telemetry();
 
@@ -36,11 +39,11 @@ async fn main() -> anyhow::Result<()> {
 }
 
 #[tracing::instrument(skip(pool), level = "info")]
-async fn start(pool: PgPool, query: Query) -> anyhow::Result<()> {
+async fn start(pool: Arc<PgPool>, query: Query) -> anyhow::Result<()> {
     match query {
         Query::RunMigrations => migration::run_migrations(&pool).await,
         Query::VisitHospital { id, hospital } => {
-            let tenant_conn = TenantConnection::new(&pool, hospital)?;
+            let tenant_conn = TenantConnection::new(pool, hospital)?;
             visit_hospital(&tenant_conn, id).await
         }
     }

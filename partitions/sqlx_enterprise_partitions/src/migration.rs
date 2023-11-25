@@ -4,8 +4,8 @@ use tracing::info;
 
 use crate::tenant::TENANTS;
 
-static SHARED_MIGRATOR: Migrator = sqlx::migrate!("./migrations/shared/migrations");
-static TENANT_MIGRATOR: Migrator = sqlx::migrate!("./migrations/tenant/migrations");
+pub static SHARED_MIGRATOR: Migrator = sqlx::migrate!("./migrations/shared/migrations");
+pub static TENANT_MIGRATOR: Migrator = sqlx::migrate!("./migrations/tenant/migrations");
 
 #[tracing::instrument(skip(pool), level = "info")]
 pub async fn run_migrations(pool: &PgPool) -> anyhow::Result<()> {

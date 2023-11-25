@@ -4,7 +4,7 @@ use tracing::info;
 use crate::tenant::TenantConnection;
 
 #[tracing::instrument(skip(pool), level = "info")]
-pub async fn visit_hospital(pool: &TenantConnection<'_>, id: i32) -> anyhow::Result<()> {
+pub async fn visit_hospital(pool: &TenantConnection, id: i32) -> anyhow::Result<()> {
     let mut conn = pool.conn().await?;
     #[derive(sqlx::FromRow)]
     struct HospitalVisit {
@@ -24,4 +24,22 @@ pub async fn visit_hospital(pool: &TenantConnection<'_>, id: i32) -> anyhow::Res
         info!("The hospital visit id is {id}");
     })
     .context("Failed to insert hospital_visit")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::tenant::TenantConnection;
+    use rstest::*;
+    use crate::test_fixtures::test_hospital_tenant_connection;
+
+    #[rstest]
+    #[tokio::test]
+    async fn test_creating_a_hospital_visit_works(
+        #[future] test_hospital_tenant_connection: TenantConnection,
+    ) {
+        let conn = test_hospital_tenant_connection.await;
+        let result = visit_hospital(&conn, 1).await;
+        assert!(result.is_ok())
+    }
 }

@@ -12,10 +12,17 @@ clap.workspace = true
 dotenv-flow.workspace = true
 sqlx.workspace = true
 tokio.workspace = true
-connection-pool = { path = "../../connection-pool", version = "*" }
+connection-pool = { path = "../../connection-pool", version = "*", features = ["testing"] }
 
 tracing_helpers = { path = "../../tracing-helpers", version = "*" }
 tracing.workspace = true
 tracing-log.workspace = true
 
 fake = { version = "2.9", features = ["derive", "bigdecimal"] }
+
+[dev-dependencies]
+rstest.workspace = true
+
+
+#[features]
+#testing = ["dep:rstest"]

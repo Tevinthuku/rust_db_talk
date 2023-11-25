@@ -1,3 +1,6 @@
+#[cfg(any(feature = "testing", test))]
+pub mod test_fixtures;
+
 use anyhow::Context;
 use diesel::r2d2::ConnectionManager;
 use sqlx::PgPool;
