@@ -8,6 +8,7 @@ We cover querying the database with diesel, indexes and tracing
 
 1.  run `diesel setup`
 2.  run `diesel migration run`
+3.  populate db with seed data from `seed/dummy_data.sql`
 
 ## Running the commands
 

@@ -10,6 +10,10 @@ A Multi-tenant sqlx setup.
 1.  cargo run -- run-migrations
 ```
 
+```
+2.  populate db with seed data from `seed/insert_55_million_kenyans.sql``
+```
+
 #### Visiting a hospital
 
 ```
