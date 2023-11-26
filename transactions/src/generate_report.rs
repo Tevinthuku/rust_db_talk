@@ -58,3 +58,17 @@ pub async fn generate_report(pool: PgPool) -> anyhow::Result<()> {
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use sqlx::PgPool;
+
+    use crate::generate_report::*;
+
+    #[sqlx::test]
+    async fn generate_report_works(pool: PgPool) -> sqlx::Result<()> {
+        let result = generate_report(pool).await;
+        assert!(result.is_ok());
+        Ok(())
+    }
+}

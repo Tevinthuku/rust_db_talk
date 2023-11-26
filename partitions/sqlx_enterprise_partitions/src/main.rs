@@ -1,12 +1,14 @@
 pub mod migration;
 pub mod tenant;
-pub mod visit_hospital;
+#[cfg(test)]
 pub mod test_fixtures;
 
-use std::sync::Arc;
+pub mod visit_hospital;
+
 use clap::Parser;
 use connection_pool::create_sqlx_pool;
 use sqlx::PgPool;
+use std::sync::Arc;
 use tenant::TenantConnection;
 use tracing::error;
 use visit_hospital::visit_hospital;

@@ -1,7 +1,7 @@
-use std::sync::Arc;
 use connection_pool::test_fixtures::sqlx_pool_fixture;
 use rstest::*;
 use sqlx::PgPool;
+use std::sync::Arc;
 
 use crate::tenant::{TenantConnection, TENANTS};
 

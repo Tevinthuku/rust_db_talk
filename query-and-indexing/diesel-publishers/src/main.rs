@@ -1,5 +1,8 @@
 pub mod author;
 pub mod schema;
+
+#[cfg(test)]
+pub mod fixtures;
 use std::fmt;
 use std::fmt::Debug;
 

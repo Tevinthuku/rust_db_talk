@@ -1,4 +1,3 @@
--- Your SQL goes here
 
 -- Generate 50,000 authors
 INSERT INTO author (name)

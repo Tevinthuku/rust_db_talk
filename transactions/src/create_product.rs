@@ -40,3 +40,19 @@ pub async fn create_product(pool: PgPool) -> anyhow::Result<String> {
 
     Ok(data.product_sku)
 }
+
+#[cfg(test)]
+mod tests {
+    use sqlx::PgPool;
+
+    use crate::create_product::*;
+
+    #[sqlx::test]
+    async fn create_test_works(pool: PgPool) -> sqlx::Result<()> {
+        let result = create_product(pool).await;
+        println!("{result:?}");
+        assert!(result.is_ok());
+
+        Ok(())
+    }
+}

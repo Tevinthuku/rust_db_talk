@@ -543,6 +543,7 @@ dependencies = [
  "diesel_migrations",
  "dotenv-flow",
  "itertools 0.12.0",
+ "rstest",
  "serde",
  "serde_json",
  "tokio",

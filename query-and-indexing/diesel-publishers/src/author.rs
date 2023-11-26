@@ -141,21 +141,28 @@ pub async fn author_books_raw_sql(
 
 #[cfg(test)]
 mod tests {
-    use connection_pool::create_diesel_pool;
+    use crate::fixtures::diesel_pool_fixture_with_single_author;
+    use connection_pool::DieselPool;
+    use rstest::*;
 
     use crate::author::{author_books_diesel_dsl, author_books_raw_sql};
+
+    #[rstest]
     #[tokio::test]
-    async fn test_impl_1_getting_author_books_works() {
-        let pool = create_diesel_pool().unwrap();
-        let result = author_books_diesel_dsl(pool, 1).await;
+    async fn test_impl_1_getting_author_books_works(
+        diesel_pool_fixture_with_single_author: DieselPool,
+    ) {
+        let result = author_books_diesel_dsl(diesel_pool_fixture_with_single_author, 1).await;
 
         assert!(result.is_ok());
     }
 
+    #[rstest]
     #[tokio::test]
-    async fn test_impl_2_getting_author_books_works() {
-        let pool = create_diesel_pool().unwrap();
-        let result = author_books_raw_sql(pool, 1).await;
+    async fn test_impl_2_getting_author_books_works(
+        diesel_pool_fixture_with_single_author: DieselPool,
+    ) {
+        let result = author_books_raw_sql(diesel_pool_fixture_with_single_author, 1).await;
         assert!(result.is_ok())
     }
 }
