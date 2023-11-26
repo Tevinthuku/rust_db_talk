@@ -38,3 +38,6 @@ jobs:
         run: cargo test --verbose
         env:
           TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          # DATABASE_URL is needed for the tests running inside `transactions` crate
+          # https://docs.rs/sqlx/latest/sqlx/attr.test.html#supported-databases
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
