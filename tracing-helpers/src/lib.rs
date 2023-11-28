@@ -35,6 +35,7 @@ pub fn config_telemetry() {
 
     let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
 
+    // we want to print Error, Warn & Info to the terminal
     let fmt_layers = [LevelFilter::ERROR, LevelFilter::WARN, LevelFilter::INFO]
         .into_iter()
         .map(|filter| {
