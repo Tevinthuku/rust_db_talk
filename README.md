@@ -11,3 +11,9 @@ https://diesel.rs/guides/getting-started
 ### Docker desktop
 
 https://www.docker.com/products/docker-desktop/
+
+### docker-compose up command
+
+```
+docker compose -f docker-compose.yml up -d
+```

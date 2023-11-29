@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/query-and-indexing/diesel-publishers/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tracing-helpers/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/transactions/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/partitions/diesel_pg_table_partitions/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

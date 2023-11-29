@@ -1,0 +1,28 @@
+[package]
+name = "diesel_pg_table_partitions"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+diesel = { workspace = true, features = ["postgres", "r2d2"] }
+diesel_migrations.workspace = true
+dotenv-flow.workspace = true
+tokio.workspace = true
+itertools.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+bigdecimal.workspace = true
+
+connection-pool = { path = "../../connection-pool", version = "*", features=["testing"] }
+tracing_helpers = { path = "../../tracing-helpers", version = "*" }
+tracing.workspace = true
+tracing-log.workspace = true
+chrono = "0.4.31"
+
+[dev-dependencies]
+rstest.workspace = true
