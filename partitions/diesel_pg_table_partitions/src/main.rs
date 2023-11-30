@@ -86,6 +86,7 @@ async fn create_partition(
         "
         );
         conn.batch_execute(&statement)
+            .map(|_| info!("Successfully created the partition"))
             .context("Failed to create the partition")
     })
     .await?
@@ -111,7 +112,7 @@ async fn new_sale(
                 sales::amount.eq(amount),
             ))
             .execute(&mut conn)
-            .map(|_| ())
+            .map(|_| info!("Successfully added a new sale"))
             .context("Failed to insert new sale")
     })
     .await?
