@@ -4,9 +4,21 @@
 
 https://github.com/launchbadge/sqlx/blob/main/sqlx-cli/README.md#sqlx-cli
 
+if you only want postgres support.
+
+```
+cargo install sqlx-cli --no-default-features --features native-tls,postgres
+```
+
 #### Diesel CLI
 
 https://diesel.rs/guides/getting-started
+
+if you only want postgres support.
+
+```
+cargo install diesel_cli --no-default-features --features postgres
+```
 
 #### Docker desktop
 
