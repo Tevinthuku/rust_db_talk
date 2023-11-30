@@ -11,5 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run Clippy
-        working-directory: ./rust-workspace
         run: cargo clippy --all-targets --all-features
