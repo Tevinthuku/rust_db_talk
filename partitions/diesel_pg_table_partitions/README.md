@@ -1,5 +1,11 @@
 ## Setup
 
+Run the following commands:
+
+```
+diesel setup
+```
+
 ```
 diesel migration run
 ```
@@ -10,13 +16,13 @@ diesel migration run
 cargo run -- create-partition sales_december_2023 2023-12-01 2023-12-31
 ```
 
-## inserting data
+## inserting data (a new sale)
 
 ```
 cargo run -- new-sale 1 2023-12-02 200
 ```
 
-## Querying data
+## Querying data (sales between a date range)
 
 ```
 cargo run -- read-sales 2023-12-01 2023-11-30

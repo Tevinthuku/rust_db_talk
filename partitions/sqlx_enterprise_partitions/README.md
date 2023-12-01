@@ -4,6 +4,10 @@ A Multi-tenant sqlx setup.
 
 ### Setup
 
+```
+sqlx database create
+```
+
 #### Running the migrations
 
 ```

@@ -48,3 +48,30 @@ We'll cover the topics in the following order
 5. partitions -> `partitions` folder (Challenges included in both) <br />
    `partitions/diesel_pg_table_partitions` -> Postgres table partitions using Diesel ORM <br />
    `partitions/sqlx_enterprise_partitions` -> A multitenant setup in postgres with SQLX
+
+
+
+## Accessing the DB via the UI:
+
+Download https://tableplus.com/download
+
+Download db connection group from here https://drive.google.com/drive/folders/1BBABdXIGb2O5jufwh56V_nTp1cBYSclA?usp=sharing
+
+
+## Accessing the DB via the terminal:
+
+
+```
+docker exec -it <container_name> psql -U postgres -d <db_name>
+```
+
+eg: The base_db
+```
+docker exec -it rust_db_talk-base_db-1  psql -U postgres -d base_db
+```
+
+eg: pg_table_partition
+```
+docker exec -it rust_db_talk-pg_table_partitions-1  psql -U postgres -d pg_table_partitions
+```
+

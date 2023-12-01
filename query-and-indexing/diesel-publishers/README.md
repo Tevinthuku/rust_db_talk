@@ -29,3 +29,9 @@ cargo run --bin=diesel-publishers books-diesel-dsl 10000
 ```
 cargo run --bin=diesel-publishers books-raw-sql 1000
 ```
+
+### Inspecting the DB
+
+```
+docker exec -it rust_db_talk-base_db-1 psql -U postgres -d diesel_publishers_db
+```

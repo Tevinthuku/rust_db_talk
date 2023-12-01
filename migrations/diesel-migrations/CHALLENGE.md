@@ -1,1 +1,1 @@
-1. Create a table called `diesel_migration_challenge`. It should have a serial id field and a name text field that is nullable.
+1. Create a migration that adds a new age `INT` column to the `test_table_diesel` table. It can be nullable.
