@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "\n            SELECT product_sku, SUM(quantity) as total_quantity, SUM(price) as total_sales FROM product_sale GROUP BY (product_sku)\n        ",
+  "query": "\n            SELECT product_sku, COALESCE(SUM(quantity), 0) as total_quantity, SUM(price) as total_sales FROM product_sale GROUP BY (product_sku)\n        ",
   "describe": {
     "columns": [
       {
@@ -28,5 +28,5 @@
       null
     ]
   },
-  "hash": "8b65c147df463929697f2d440452eea607151747ecb30ce26b506714db760355"
+  "hash": "3d500dd29496414fecf4d6e31cddbbb11de9722fc0a06d24073d39c556a349e9"
 }

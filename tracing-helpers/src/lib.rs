@@ -36,13 +36,13 @@ pub fn config_telemetry() {
     let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
 
     // we want to print Error, Warn & Info to the terminal
-    let fmt_layers = tracing_subscriber::fmt::layer()
-                .with_target(false)
-                .with_filter(LevelFilter::INFO)
-                .boxed();
+    let fmt_layer = tracing_subscriber::fmt::layer()
+        .with_target(false)
+        .with_filter(LevelFilter::INFO)
+        .boxed();
     let subscriber = tracing_subscriber::Registry::default()
         .with(telemetry)
-        .with(fmt_layers);
+        .with(fmt_layer);
     tracing::subscriber::set_global_default(subscriber).unwrap();
 }
 

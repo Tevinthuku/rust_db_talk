@@ -38,6 +38,8 @@ pub async fn create_product(pool: PgPool) -> anyhow::Result<String> {
     .await
     .context("Failed to insert the inventory")?;
 
+    tx.commit().await.context("Failed to commit changes")?;
+
     Ok(data.product_sku)
 }
 

@@ -13,7 +13,7 @@ pub async fn generate_report(pool: PgPool) -> anyhow::Result<()> {
 
     let summary = sqlx::query!(
         "
-            SELECT product_sku, SUM(quantity) as total_quantity, SUM(price) as total_sales FROM product_sale GROUP BY (product_sku)
+            SELECT product_sku, COALESCE(SUM(quantity), 0) as total_quantity, SUM(price) as total_sales FROM product_sale GROUP BY (product_sku)
         "
     )
     .fetch_all(&mut *tx).await.context("Failed to get sales summary")?;
